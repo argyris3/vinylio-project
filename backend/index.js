@@ -38,12 +38,12 @@ app.get('/api/config/paypal', (req, res) => {
 
 app.use(express.static(path.join(__dirname, '/uploads')));
 
-// app.use(express.static(path.join(__dirname, 'frontend/dist')));
+app.use(express.static(path.join(__dirname, '/frontend/dist')));
 
 app.use('/uploads', express.static(path.join(__dirname + '/uploads')));
 
-// app.get('*', (req, res) => {
-//   res.sendFile(path.join(__dirname, 'frontend', 'dist', 'index.html'));
-// });
+app.get('*', (req, res) => {
+  res.sendFile(path.join(__dirname, 'frontend', 'dist', 'index.html'));
+});
 
 app.listen(port, () => console.log(`Εκπεμπουμε στους ${port}`));
