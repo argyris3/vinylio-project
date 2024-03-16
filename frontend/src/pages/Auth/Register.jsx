@@ -1,16 +1,16 @@
-import { useEffect, useState } from "react";
-import Loader from "../../components/Loader";
-import { useRegisterMutation } from "../../redux/api/usersApiSlice";
-import { setCredentials } from "../../redux/features/auth/authSlice";
-import { toast } from "react-toastify";
-import { useDispatch, useSelector } from "react-redux";
-import { Link, useLocation, useNavigate } from "react-router-dom";
+import { useEffect, useState } from 'react';
+import Loader from '../../components/Loader';
+import { useRegisterMutation } from '../../redux/api/usersApiSlice';
+import { setCredentials } from '../../redux/features/auth/authSlice';
+import { toast } from 'react-toastify';
+import { useDispatch, useSelector } from 'react-redux';
+import { Link, useLocation, useNavigate } from 'react-router-dom';
 
 const Register = () => {
-  const [username, setUsername] = useState("");
-  const [email, setEmail] = useState("");
-  const [password, setPassword] = useState("");
-  const [confirmPassword, setConfirmPassword] = useState("");
+  const [username, setUsername] = useState('');
+  const [email, setEmail] = useState('');
+  const [password, setPassword] = useState('');
+  const [confirmPassword, setConfirmPassword] = useState('');
 
   const dispatch = useDispatch();
   const navigate = useNavigate();
@@ -18,7 +18,7 @@ const Register = () => {
   const { userInfo } = useSelector((state) => state.auth);
   const { search } = useLocation();
   const sp = new URLSearchParams(search);
-  const redirect = sp.get("redirect") || "/";
+  const redirect = sp.get('redirect') || '/';
 
   useEffect(() => {
     if (userInfo) {
@@ -29,7 +29,7 @@ const Register = () => {
   const submitHandler = async (e) => {
     e.preventDefault();
     if (password !== confirmPassword) {
-      toast.error("Passwords do not match...");
+      toast.error('Passwords do not match...');
     } else {
       try {
         const res = await register({
@@ -43,7 +43,7 @@ const Register = () => {
           })
         );
         navigate(redirect);
-        toast.success("User Successfully registered");
+        toast.success('User Successfully registered');
       } catch (error) {
         console.log(error);
         // toast.error(error.data.message);
@@ -74,7 +74,7 @@ const Register = () => {
               Email Address
             </label>
             <input
-              type="text"
+              type="email"
               id="text"
               placeholder="Enter email..."
               value={email}
@@ -96,16 +96,13 @@ const Register = () => {
             />
           </div>
           <div className="my-[2rem]">
-            <label
-              htmlFor="confirmPassword"
-              className="block text-md font-medium"
-            >
+            <label htmlFor="confirmPassword" className="block text-md font-medium">
               Confirm Password
             </label>
             <input
               type="password"
               id="confirmPassword"
-              placeholder="Enter name..."
+              placeholder="Enter password"
               value={confirmPassword}
               onChange={(e) => setConfirmPassword(e.target.value)}
               className="input input-bordered input-success w-full max-w-xs"
@@ -116,17 +113,14 @@ const Register = () => {
             type="submit"
             className="bg-pink-500 text-white px-4 py-2 rounded cursor-pointer my-[1rem]"
           >
-            {isLoading ? "Registering..." : "Register"}
+            {isLoading ? 'Registering...' : 'Register'}
           </button>
           {isLoading && <Loader />}
         </form>
         <div className="mt-4">
           <p className="text-white">
-            Already Have An Account ?{" "}
-            <Link
-              to={redirect ? `/login?redirect=${redirect}` : "/login"}
-              className="text-pink-500 hover:underline "
-            >
+            Already Have An Account ?{' '}
+            <Link to={redirect ? `/login?redirect=${redirect}` : '/login'} className="text-pink-500 hover:underline ">
               Login
             </Link>
           </p>
